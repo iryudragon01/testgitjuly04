@@ -6,10 +6,8 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.AdapterView
 import kotlinx.android.synthetic.main.activity_main.*
 import android.view.MotionEvent
-import android.text.method.Touch.onTouchEvent
 import android.view.GestureDetector
 import android.widget.Toast
 
@@ -23,17 +21,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var fooditem:MutableList<item>
-        fooditem=ArrayList<item>()
-        fooditem.add(0,item("mama",30,20,15,true))
-        fooditem.add(fooditem.size,item("snack" ,24,13,5 ,true))
-        fooditem.add(fooditem.size,item("jubjai",24,16,10,true))
-        fooditem.add(fooditem.size,item("oishi" ,16,15,12,true))
-        fooditem.add(fooditem.size,item("water" ,30,17,5 ,true))
-        fooditem.add(fooditem.size,item("est"   ,72,30,10,true))
-    println("fooditem size =${fooditem.size}")
-       var myadape=foodadape(this,fooditem)
-        showview.layoutManager=LinearLayoutManager(this)
+        actionbt.setOnClickListener { showitem() }
+        GoogleScript().execute("action=getdataall&GoogleId=${User.id}")
+
+    }
+    fun showitem(){
+
+        var myadape=foodadape(this,ticket)
+        showview.layoutManager= LinearLayoutManager(this)
         showview.adapter=myadape
         showview.addOnItemTouchListener(RecyclerTouchListener(this,
                 showview, object : ClickListener {
@@ -85,4 +80,39 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+      class GoogleScript():GoogleSheet(){
+        override fun onPostExecute(result: String?) {
+
+                println(result)
+            val unwrap=(result as String).split("<||>")
+            if (unwrap[0]=="getdataall") {
+                extract(unwrap[2])
+            }
+            return
+        }
+          fun extract(result:String){
+              val move=result.split("|||")
+              val unwrap=move[0].split("<&&>")
+              val unname=unwrap[0].split(",")
+              val unprice=unwrap[1].split(",")
+              val unfirst=unwrap[2].split(",")
+              val unlast=unwrap[3].split(",")
+              ticket=ArrayList<ticketitem>()
+              for(i in 1 until unname.size){
+               ticket.add(ticketitem(unname[i],unfirst[i].toInt(),unlast[i].toInt(),unprice[i].toInt()))
+              }
+              println("show what in ticket")
+              ticket.forEach { someitem ->
+                  println(someitem.name)
+                  println(someitem.first)
+                  println(someitem.last)
+                  println(someitem.price)
+              }
+
+          }
+    }
+
 }
+data class ticketitem(val name:String,var first:Int,var last:Int,val price:Int)
+lateinit var ticket:MutableList<ticketitem>
+
