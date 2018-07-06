@@ -10,12 +10,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import android.view.MotionEvent
 import android.view.GestureDetector
 import android.widget.Toast
+import kotlinx.android.synthetic.main.adape.view.*
 
 
-
-
-
-class item(val Name:String,var first:Int,var last:Int ,val price:Int,var Active:Boolean)
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,11 +31,21 @@ class MainActivity : AppCompatActivity() {
                 showview, object : ClickListener {
             override fun onClick(view: View, position: Int) {
                 //Values are passing to activity & to fragment as well
+
+                ticket[position].last+= ticket[position].singleclick
+                var myadape=foodadape(view.context,ticket)
+                showview.adapter=myadape
+                showview.scrollToPosition(position)
                 Toast.makeText(this@MainActivity, "Single Click on position        :$position",
                         Toast.LENGTH_SHORT).show()
             }
 
             override fun onLongClick(view: View, position: Int) {
+                ticket[position].last-= ticket[position].singleclick
+                var myadape=foodadape(view.context,ticket)
+                showview.adapter=myadape
+                showview.scrollToPosition(position)
+
                 Toast.makeText(this@MainActivity, "Long press on position :$position",
                         Toast.LENGTH_LONG).show()
             }
@@ -86,33 +93,38 @@ class MainActivity : AppCompatActivity() {
                 println(result)
             val unwrap=(result as String).split("<||>")
             if (unwrap[0]=="getdataall") {
-                extract(unwrap[2])
+                extract(result as String)
             }
             return
         }
           fun extract(result:String){
-              val move=result.split("|||")
-              val unwrap=move[0].split("<&&>")
-              val unname=unwrap[0].split(",")
-              val unprice=unwrap[1].split(",")
-              val unfirst=unwrap[2].split(",")
-              val unlast=unwrap[3].split(",")
+              val allitem=result.split("|||")
               ticket=ArrayList<ticketitem>()
-              for(i in 1 until unname.size){
-               ticket.add(ticketitem(unname[i],unfirst[i].toInt(),unlast[i].toInt(),unprice[i].toInt()))
-              }
+              for(j in 1 until 4){
+                  val tkitem=allitem[j].split("<||>")[1].split("<&&>")
+                  val tkname=tkitem[0].split(",")
+                  val tkprice=tkitem[1].split(",")
+                  val tkfirst=tkitem[2].split(",")
+                  val tklast=tkitem[3].split(",")
+              for(i in 1 until tkname.size){
+                  var singleclick=0
+                  when (j) {
+                      1 -> singleclick=1
+                      2 -> singleclick=10
+                      3 -> singleclick=-1
+                  }
+               ticket.add(ticketitem(tkname[i],tkfirst[i].toInt(),tklast[i].toInt(),tkprice[i].toInt(),singleclick))
+              }}
               println("show what in ticket")
               ticket.forEach { someitem ->
                   println(someitem.name)
-                  println(someitem.first)
-                  println(someitem.last)
-                  println(someitem.price)
+                  println(someitem.singleclick)
               }
 
           }
     }
 
 }
-data class ticketitem(val name:String,var first:Int,var last:Int,val price:Int)
+data class ticketitem(val name:String,var first:Int,var last:Int,val price:Int,val singleclick:Int)
 lateinit var ticket:MutableList<ticketitem>
 
