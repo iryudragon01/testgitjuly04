@@ -1,16 +1,17 @@
 package com.iryu.wahkor.testgitjuly04
 
+import android.app.AlertDialog
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.InputType
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import android.view.MotionEvent
 import android.view.GestureDetector
-import android.widget.Toast
-import kotlinx.android.synthetic.main.adape.view.*
+import android.widget.EditText
 
 
 class MainActivity : AppCompatActivity() {
@@ -18,15 +19,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        actionbt.setOnClickListener { showitem() }
+        actionbt.setOnClickListener { showitem(0) }
         GoogleScript().execute("action=getdataall&GoogleId=${User.id}")
 
     }
-    fun showitem(){
+    fun showitem(scroll:Int){
 
         var myadape=foodadape(this,ticket)
         showview.layoutManager= LinearLayoutManager(this)
         showview.adapter=myadape
+        showview.scrollToPosition(scroll)
         showview.addOnItemTouchListener(RecyclerTouchListener(this,
                 showview, object : ClickListener {
             override fun onClick(view: View, position: Int) {
@@ -36,18 +38,11 @@ class MainActivity : AppCompatActivity() {
                 var myadape=foodadape(view.context,ticket)
                 showview.adapter=myadape
                 showview.scrollToPosition(position)
-                Toast.makeText(this@MainActivity, "Single Click on position        :$position",
-                        Toast.LENGTH_SHORT).show()
             }
 
             override fun onLongClick(view: View, position: Int) {
-                ticket[position].last-= ticket[position].singleclick
-                var myadape=foodadape(view.context,ticket)
-                showview.adapter=myadape
-                showview.scrollToPosition(position)
+                myAlert(view,position)
 
-                Toast.makeText(this@MainActivity, "Long press on position :$position",
-                        Toast.LENGTH_LONG).show()
             }
         }))
     }
@@ -124,6 +119,44 @@ class MainActivity : AppCompatActivity() {
           }
     }
 
+    fun myAlert(view:View, position:Int) {
+        val alert= AlertDialog.Builder(view.context)
+        var edittextlast: EditText?=null
+        with(alert){
+            setTitle(ticket[position].name)
+            setMessage("ยอดล่าสุด")
+
+            edittextlast= EditText(context)
+            edittextlast!!.hint= ticket[position].last.toString()
+            edittextlast!!.inputType = InputType.TYPE_CLASS_PHONE
+            edittextlast!!.requestFocus()
+            setPositiveButton("OK") { dialog, _ -> dialog.dismiss()
+                val last=edittextlast!!.text.toString()
+
+
+                if (checkeval(last)){
+                    ticket[position].last= inputData(last, ticket[position].last,0,ticket[position].first)
+
+                    var myadape=foodadape(view.context,ticket)
+                    showview.adapter=myadape
+                    showview.scrollToPosition(position)
+
+                }
+
+
+            }
+
+            setNegativeButton("NO") {
+                dialog, _ ->
+                dialog.dismiss()
+            }
+        }
+
+        // Dialog
+        val dialog = alert.create()
+        dialog.setView(edittextlast)
+        dialog.show()
+    }
 }
 data class ticketitem(val name:String,var first:Int,var last:Int,val price:Int,val singleclick:Int)
 lateinit var ticket:MutableList<ticketitem>
