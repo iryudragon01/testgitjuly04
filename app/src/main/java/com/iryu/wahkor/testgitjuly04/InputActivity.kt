@@ -5,8 +5,6 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_input.*
-data class inputdata(var name:String,var valueint:Int,var valuestr:String,var index:Int)
-var dataedit=inputdata("name",0,"0",-1)
 var editposition=-1
 class InputActivity : AppCompatActivity() {
 
@@ -44,8 +42,6 @@ class InputActivity : AppCompatActivity() {
             }
             "enter" -> {
                 try {
-                    dataedit.valueint=evalstring.eval(inputview.text.toString()).toInt()
-                    dataedit.valuestr=inputview.text.toString()
                     ticket[editposition].last=evalstring.eval(inputview.text.toString()).toInt()
 
                     startActivity(Intent(this,MainActivity::class.java))
