@@ -17,7 +17,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        startActivity(Intent(this,InputActivity::class.java))
+       // startActivity(Intent(this,InputActivity::class.java))
         val submitbt=findViewById<Button>(R.id.summitbt)
         submitbt.setOnClickListener {login();}
         callmain=Intent(this,MainActivity::class.java)

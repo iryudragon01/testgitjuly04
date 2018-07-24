@@ -2,6 +2,7 @@ package com.iryu.wahkor.testgitjuly04
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -12,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import android.view.MotionEvent
 import android.view.GestureDetector
 import android.widget.EditText
+import android.widget.Toast
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,8 +22,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         actionbt.setOnClickListener { showitem(0) }
-        GoogleScript().execute("action=getdataall&GoogleId=${User.id}")
-
+        if (editposition==-1){
+        GoogleScript().execute("action=getdataall&GoogleId=${User.id}")}
+        else{
+            showitem(editposition)
+        }
     }
     fun showitem(scroll:Int){
 
@@ -120,42 +125,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun myAlert(view:View, position:Int) {
-        val alert= AlertDialog.Builder(view.context)
-        var edittextlast: EditText?=null
-        with(alert){
-            setTitle(ticket[position].name)
-            setMessage("ยอดล่าสุด")
+        editposition=position
+        val intent= Intent(this,InputActivity::class.java)
+        startActivity(intent)
 
-            edittextlast= EditText(context)
-            edittextlast!!.hint= ticket[position].last.toString()
-            edittextlast!!.inputType = InputType.TYPE_CLASS_PHONE
-            edittextlast!!.requestFocus()
-            setPositiveButton("OK") { dialog, _ -> dialog.dismiss()
-                val last=edittextlast!!.text.toString()
-
-
-                if (checkeval(last)){
-                    ticket[position].last= inputData(last, ticket[position].last,0,ticket[position].first)
-
-                    var myadape=foodadape(view.context,ticket)
-                    showview.adapter=myadape
-                    showview.scrollToPosition(position)
-
-                }
-
-
-            }
-
-            setNegativeButton("NO") {
-                dialog, _ ->
-                dialog.dismiss()
-            }
-        }
-
-        // Dialog
-        val dialog = alert.create()
-        dialog.setView(edittextlast)
-        dialog.show()
     }
 }
 data class ticketitem(val name:String,var first:Int,var last:Int,val price:Int,val singleclick:Int)
