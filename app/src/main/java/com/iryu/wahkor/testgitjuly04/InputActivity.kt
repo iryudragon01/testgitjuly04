@@ -2,8 +2,10 @@ package com.iryu.wahkor.testgitjuly04
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_input.*
-
+data class inputdata(var name:String,var valueint:Int,var valuestr:String,var index:Int)
+var dataedit=inputdata("name",0,"0",-1)
 class InputActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +28,7 @@ class InputActivity : AppCompatActivity() {
         buttonback.setOnClickListener{onbuttonclick("del")}
         clear.setOnClickListener{onbuttonclick("clear")}
         buttonenter.setOnClickListener{onbuttonclick("enter")}
+        inputview.hint= dataedit.name+" = "+dataedit.valuestr
     }
 
     private fun onbuttonclick(button: String) {
@@ -39,8 +42,11 @@ class InputActivity : AppCompatActivity() {
             }
             "enter" -> {
                 try {
-                    inputview.text=evalstring.eval(inputview.text.toString()).toInt().toString()
-                }catch (e:Throwable){}
+                    dataedit.valueint=evalstring.eval(inputview.text.toString()).toInt()
+                    dataedit.valuestr=inputview.text.toString()
+                    Toast.makeText(this, dataedit.valuestr,Toast.LENGTH_SHORT).show()
+                }catch (e:Throwable){
+                    Toast.makeText(this, dataedit.valuestr,Toast.LENGTH_SHORT).show()}
 
 
             }
