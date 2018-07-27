@@ -9,14 +9,17 @@ class RefillshowActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_refillshow)
-addElementRefilldetail()
+       // addElementRefilldetail()
+        addrefill()
     }
     fun addElementRefilldetail(){
-        println(refillitem.size)
-        for (i in 0 until refillitem.size){
-            println(refillitem[i].time+" "+ refillitem[i].name+" ="+ refillitem[i].value)
-        }
-        val adapter=refillAdaper( this,refillitem)
+        var refillshow=refillitem
+        refillshow.add(refillshow.size,foodrefill("now","name",0))
+        val adapter=refillAdaper( this,refillshow)
         stock_showlist.adapter=adapter
+    }
+    fun addrefill(){
+        val adap=addrefilladapter(this, foodname)
+        stock_showlist.adapter=adap
     }
 }
