@@ -18,7 +18,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        startActivity(Intent(this,RefillshowActivity::class.java))
+        //startActivity(Intent(this,RefillshowActivity::class.java))
         val submitbt=findViewById<Button>(R.id.summitbt)
         submitbt.setOnClickListener {login();}
         callmain=Intent(this,MainActivity::class.java)

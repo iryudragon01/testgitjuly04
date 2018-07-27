@@ -28,6 +28,8 @@ package com.iryu.wahkor.testgitjuly04
    }
 
 fun refilladd(refill:String,income: String, expense: String) {
+
+    refillitem=ArrayList<foodrefill>()
     val food=refill.split("<||>")
     if (food[1]!="norefill"){
         val allfood=food[1].split("<sum>")
@@ -35,10 +37,11 @@ fun refilladd(refill:String,income: String, expense: String) {
         sumallfood=allfood[1].split(",")
         for (i in 0 until itemfood.size){
             val subfood=itemfood[i].split(",")
-            refillitem=ArrayList<foodrefill>()
             for (j in 1 until subfood.size){
                 if(subfood[j].toInt() >0){
-                refillitem.add(foodrefill(subfood[0],foodname[j],subfood[j].toInt()))
+                    refillitem.add(foodrefill(subfood[0],foodname[j],subfood[j].toInt()))
+
+                    println("refillitem size ="+ refillitem.size)
 
             }}
         }
