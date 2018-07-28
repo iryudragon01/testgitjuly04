@@ -24,10 +24,11 @@ package com.iryu.wahkor.testgitjuly04
            }
 
        }
-       refilladd(allitem[4],allitem[5],allitem[6])
+       refilladd(allitem[4])
+       statementmanagement(allitem[5],allitem[6])
    }
 
-fun refilladd(refill:String,income: String, expense: String) {
+fun refilladd(refill:String) {
 
     refillitem=ArrayList<foodrefill>()
     val food=refill.split("<||>")
@@ -41,18 +42,45 @@ fun refilladd(refill:String,income: String, expense: String) {
                 if(subfood[j].toInt() >0){
                     refillitem.add(foodrefill(subfood[0],foodname[j],subfood[j].toInt()))
 
-                    println("refillitem size ="+ refillitem.size)
 
             }}
         }
         for(i in 1 until foodname.size){
              ticket[foodstart+i-1].first+=sumallfood[i-1].toInt()
         }
+
     }
+
+
+}
+
+fun statementmanagement(income: String, expense: String) {
+    Income=ArrayList<Statement>()
+    Expense=ArrayList<Statement>()
+    if(income.split("<||>")[1]!=""){
+        Income=extractExpense(income.split("<||>")[1])
+    }
+    if(expense.split("<||>")[1]!=""){
+        Expense=extractExpense(expense.split("<||>")[1])
+    }
+}
+
+fun extractExpense(rawdata: String): MutableList<Statement> {
+    var data: MutableList<Statement>
+    data=ArrayList<Statement>()
+    val splitdata=rawdata.split("<&&")
+    for (i in 0 until splitdata.size){
+        val donedata=splitdata[i].split(",")
+        data.add(Statement(donedata[0],donedata[1],donedata[2].toInt()))
+    }
+    return data
 
 }
 
 data class foodrefill(val time:String,val name:String,val value:Int)
+data class Statement(val date:String,val name:String,val value:Int)
+lateinit var Income:MutableList<Statement>
+lateinit var Expense:MutableList<Statement>
 lateinit var refillitem:MutableList<foodrefill>
 lateinit var foodname:List<String>
 lateinit var sumallfood:List<String>

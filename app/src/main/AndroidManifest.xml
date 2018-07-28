@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".InputActivity" />
-        <activity android:name=".RefillshowActivity"></activity>
+        <activity android:name=".RefillshowActivity" />
+        <activity android:name=".StatementActivity"></activity>
     </application>
 
 </manifest>

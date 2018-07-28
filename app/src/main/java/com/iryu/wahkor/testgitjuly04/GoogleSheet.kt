@@ -11,7 +11,6 @@ open class GoogleSheet:AsyncTask<String,String,String>(){
         for (i in 0 until params.size) {
             url += params[i]
         }
-        //println(url)
         val result: String
         val connection = URL(url).openConnection() as HttpURLConnection
 

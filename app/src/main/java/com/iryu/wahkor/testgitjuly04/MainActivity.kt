@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         context=this
-    actionbt.setOnClickListener { startActivity(Intent(this,RefillshowActivity::class.java))}
+    actionbt.setOnClickListener { startActivity(Intent(this,StatementActivity::class.java))}
         if (editposition==-1){
         GoogleScript().execute("action=getdataall&GoogleId=${User.id}")}
         else{
@@ -86,7 +86,6 @@ class MainActivity : AppCompatActivity() {
    inner   class GoogleScript():GoogleSheet(){
         override fun onPostExecute(result: String?) {
 
-                println(result)
             val unwrap=(result as String).split("<||>")
             if (unwrap[0]=="getdataall") {
                 ticketadd(result)
