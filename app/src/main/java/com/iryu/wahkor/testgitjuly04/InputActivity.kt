@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_input.*
 var editposition=-1
+data class InputManager(var type:String,var position:Int,var name:String,var oldvalue:String)
+lateinit var inputmanager:InputManager
 class InputActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +30,7 @@ class InputActivity : AppCompatActivity() {
         buttonback.setOnClickListener{onbuttonclick("del")}
         clear.setOnClickListener{onbuttonclick("clear")}
         buttonenter.setOnClickListener{onbuttonclick("enter")}
-        inputview.hint= ticket[editposition].name+" = "+ ticket[editposition].last
+        inputview.hint= inputmanager.name+" = "+ inputmanager.oldvalue
     }
 
     private fun onbuttonclick(button: String) {
