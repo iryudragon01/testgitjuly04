@@ -100,12 +100,10 @@ class MainActivity : AppCompatActivity() {
 
     fun myAlert(view:View, position:Int) {
         editposition=position
+        inputmanager= InputManager("editTicket",position,ticket[position].name,ticket[position].last.toString())
+        returnIntent=Intent(this,MainActivity::class.java)
         val intent= Intent(this,InputActivity::class.java)
         startActivity(intent)
-
-    }
-    fun solutionWithAsyncAwait(){
-
 
     }
 }

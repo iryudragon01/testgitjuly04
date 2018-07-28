@@ -22,16 +22,18 @@ class RefillshowActivity : AppCompatActivity() {
         stock_showlist.adapter=adapter
     }
     fun addrefill(){
+        if(::addrefilname.isInitialized){}else{
             addrefilname= ArrayList<AddRefillName>()
             for (i in 1 until foodname.size){
                 addrefilname.add(AddRefillName(foodname[i],0))
-            }
+            }}
 
 
         val adap=addrefilladapter(this, addrefilname)
         stock_showlist.adapter=adap
         stock_showlist.onItemClickListener= AdapterView.OnItemClickListener{ view, _, position, _ ->
             inputmanager= InputManager("refilladd",position, addrefilname[position].name,addrefilname[position].value.toString())
+            returnIntent=Intent(this,RefillshowActivity::class.java)
             startActivity(Intent(this,InputActivity::class.java))
         }
     }

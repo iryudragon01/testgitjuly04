@@ -8,6 +8,7 @@ import kotlinx.android.synthetic.main.activity_input.*
 var editposition=-1
 data class InputManager(var type:String,var position:Int,var name:String,var oldvalue:String)
 lateinit var inputmanager:InputManager
+lateinit var returnIntent:Intent
 class InputActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,10 +45,19 @@ class InputActivity : AppCompatActivity() {
             }
             "enter" -> {
                 try {
-                    ticket[editposition].last=evalstring.eval(inputview.text.toString()).toInt()
+                    evalstring.eval(inputview.text.toString()).toInt()
+                    when (inputmanager.type){
+                        "editTicket" ->{
+                                        ticket[editposition].last=evalstring.eval(inputview.text.toString()).toInt()
+                                        startActivity(Intent(returnIntent))
+                                        }
+                        "refilladd" ->{
+                                        addrefilname[inputmanager.position].value=evalstring.eval(inputview.text.toString()).toInt()
+                                        startActivity(returnIntent)
 
-                    startActivity(Intent(this,MainActivity::class.java))
-                }catch (e:Throwable){
+                                        }
+                    }
+                    }catch (e:Throwable){
                     Toast.makeText(this, "Input Format don't correct",Toast.LENGTH_SHORT).show()}
 
 
