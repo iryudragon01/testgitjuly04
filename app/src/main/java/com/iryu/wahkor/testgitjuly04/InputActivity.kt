@@ -15,7 +15,7 @@ class InputActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_input)
         button0.setOnClickListener{onbuttonclick("0")}
-        button01.setOnClickListener{onbuttonclick("1")}
+        statement.setOnClickListener{onbuttonclick("1")}
         button2.setOnClickListener{onbuttonclick("2")}
         button3.setOnClickListener{onbuttonclick("3")}
         button4.setOnClickListener{onbuttonclick("4")}

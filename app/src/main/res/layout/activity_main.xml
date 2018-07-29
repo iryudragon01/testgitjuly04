@@ -6,20 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
     <Button
-        android:id="@+id/actionbt"
-        android:text="@string/actionbt"
+        android:id="@+id/statement"
+        android:text="Statement"
         android:layout_width="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/refill"
+        android:layout_width="99dp"
+        android:layout_height="46dp"
+        android:text="Refill"
+        app:layout_constraintStart_toEndOf="@+id/statement"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/sing"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Sing Out"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/refill"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/showview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.065"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/actionbt" />
+        app:layout_constraintTop_toBottomOf="@+id/statement" />
 </android.support.constraint.ConstraintLayout>

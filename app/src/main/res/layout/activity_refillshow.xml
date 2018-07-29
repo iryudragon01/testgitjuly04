@@ -1,23 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/refillmain"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refillmain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RefillshowActivity">
 
+    <Button
+        android:id="@+id/refill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Refill"
+        app:layout_constraintStart_toEndOf="@+id/backmain"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/addrefill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Refill"
+        app:layout_constraintStart_toEndOf="@+id/refill"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ListView
         android:id="@+id/stock_showlist"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/backmain"
+        app:layout_constraintVertical_bias="0.0">
 
     </ListView>
+
+    <Button
+        android:id="@+id/backmain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="กลับหน้าหลัก"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

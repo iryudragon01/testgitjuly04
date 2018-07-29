@@ -17,7 +17,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         context=this
-    actionbt.setOnClickListener { startActivity(Intent(this,StatementActivity::class.java))}
+        statement.setOnClickListener { startActivity(Intent(this,StatementActivity::class.java))}
+        refill.setOnClickListener { startActivity(Intent(this,RefillshowActivity::class.java))}
+        sing.setOnClickListener { startActivity(Intent(this,LoginActivity::class.java))}
         if (editposition==-1){
         GoogleScript().execute("action=getdataall&GoogleId=${User.id}")}
         else{
