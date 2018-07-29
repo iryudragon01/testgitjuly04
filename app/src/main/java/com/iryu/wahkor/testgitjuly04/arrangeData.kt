@@ -57,6 +57,8 @@ fun refilladd(refill:String) {
 fun statementmanagement(income: String, expense: String) {
     Income=ArrayList<Statement>()
     Expense=ArrayList<Statement>()
+    addIncome=ArrayList<Statement>()
+    addExpense=ArrayList<Statement>()
     if(income.split("<||>")[1]!=""){
         Income=extractExpense(income.split("<||>")[1])
     }
@@ -68,7 +70,7 @@ fun statementmanagement(income: String, expense: String) {
 fun extractExpense(rawdata: String): MutableList<Statement> {
     var data: MutableList<Statement>
     data=ArrayList<Statement>()
-    val splitdata=rawdata.split("<&&")
+    val splitdata=rawdata.split("<&&>")
     for (i in 0 until splitdata.size){
         val donedata=splitdata[i].split(",")
         data.add(Statement(donedata[0],donedata[1],donedata[2].toInt()))

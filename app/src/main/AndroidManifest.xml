@@ -21,7 +21,8 @@
         </activity>
         <activity android:name=".InputActivity" />
         <activity android:name=".RefillshowActivity" />
-        <activity android:name=".StatementActivity"></activity>
+        <activity android:name=".StatementActivity" />
+        <activity android:name=".AddstatementActivity"></activity>
     </application>
 
 </manifest>
