@@ -10,7 +10,7 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import android.view.MotionEvent
 import android.view.GestureDetector
-
+var LoadData=true
 lateinit var context: Context
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +20,10 @@ class MainActivity : AppCompatActivity() {
         statement.setOnClickListener { startActivity(Intent(this,StatementActivity::class.java))}
         refill.setOnClickListener { startActivity(Intent(this,RefillshowActivity::class.java))}
         sing.setOnClickListener { startActivity(Intent(this,LoginActivity::class.java))}
-        if (editposition==-1){
+        if (LoadData){
+            statement.isClickable=false
+            refill.isClickable=false
+            sing.isClickable=false
         GoogleScript().execute("action=getdataall&GoogleId=${User.id}")}
         else{
             showitem(editposition)
@@ -48,6 +51,9 @@ class MainActivity : AppCompatActivity() {
 
             }
         }))
+        statement.isClickable=true
+        refill.isClickable=true
+        sing.isClickable=true
     }
 
     internal inner class RecyclerTouchListener(context: Context, recycleView: RecyclerView, private val clicklistener: ClickListener?) : RecyclerView.OnItemTouchListener {
@@ -91,7 +97,8 @@ class MainActivity : AppCompatActivity() {
             val unwrap=(result as String).split("<||>")
             if (unwrap[0]=="getdataall") {
                 ticketadd(result)
-                editposition=1
+                editposition=0
+                LoadData=false
                 startActivity(callmain)
             }
             return

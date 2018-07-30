@@ -25,8 +25,7 @@ class RefillshowActivity : AppCompatActivity() {
     }
     fun addrefill(){
         clickable=true
-        if(::addrefilname.isInitialized){}else{
-            addrefilname= ArrayList<AddRefillName>()
+        if(addrefilname.size==0){
             for (i in 1 until foodname.size){
                 addrefilname.add(AddRefillName(foodname[i],0))
             }}

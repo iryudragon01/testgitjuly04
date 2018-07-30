@@ -30,6 +30,7 @@ package com.iryu.wahkor.testgitjuly04
 
 fun refilladd(refill:String) {
 
+    addrefilname= ArrayList<AddRefillName>()
     refillitem=ArrayList<foodrefill>()
     val food=refill.split("<||>")
     if (food[1]!="norefill"){
