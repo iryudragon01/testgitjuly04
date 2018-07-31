@@ -60,7 +60,12 @@ fun refilladd(refill:String) {
         }
 
     }
-
+    firstairpay=ArrayList<FirstAirpay>()
+    for (i in elementtype.ticket until elementtype.ticket+ elementtype.airpay) {
+        firstairpay.add(FirstAirpay(ticket[i].first,ticket[i].last))
+        ticket[i].last -= ticket[i].first
+        ticket[i].first=0
+    }
 
 }
 
@@ -92,6 +97,7 @@ fun extractExpense(rawdata: String): MutableList<Statement> {
 data class foodrefill(val time:String,val name:String,val value:Int)
 data class Statement(val date:String,val name:String,val value:Int)
 data class Elementtype(var ticket:Int,var airpay:Int,var food:Int)
+data class FirstAirpay(var airstart:Int,var airlast:Int)
 var elementtype=Elementtype(0,0,0)
 lateinit var Income:MutableList<Statement>
 lateinit var Expense:MutableList<Statement>
@@ -99,3 +105,4 @@ lateinit var refillitem:MutableList<foodrefill>
 lateinit var foodname:List<String>
 lateinit var sumallfood:List<String>
 var foodstart=0
+lateinit var firstairpay:MutableList<FirstAirpay>

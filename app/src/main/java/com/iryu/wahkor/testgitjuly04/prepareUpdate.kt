@@ -9,12 +9,12 @@ class prepareUpdate{
         }
         return data
     }
-    fun convertticketdata(start:Int,end:Int):String{
-        var data=""
+    fun convertticketdata(start:Int,end:Int,airpay:Boolean):String{
+        var data="date"
 
         for (i in start until end){
-            if (data != ""){data+=","}
-            data+=ticket[i].last.toString()
+           val lastdata= if (airpay)ticket[i].last+ firstairpay[i- elementtype.ticket].airlast else ticket[i].last
+            data+=","+lastdata
 
         }
        return data
@@ -29,14 +29,16 @@ class prepareUpdate{
         return data
     }
 
-    fun update(){
+    fun update():String{
         var url="action=senddata"
-        val stock=convertticketdata(0, elementtype.ticket)
-        val airpay=convertticketdata(elementtype.ticket, elementtype.airpay+elementtype.ticket)
-        val fstock=convertticketdata(elementtype.airpay+elementtype.ticket,elementtype.airpay+elementtype.ticket+ elementtype.food)
+        val stock=convertticketdata(0, elementtype.ticket,false)
+        val airpay=convertticketdata(elementtype.ticket, elementtype.airpay+elementtype.ticket,true)
+        val fstock=convertticketdata(elementtype.airpay+elementtype.ticket,elementtype.airpay+elementtype.ticket+ elementtype.food,false)
         val addincome=convertstatementdata(addIncome)
         val addexpense=convertstatementdata(addExpense)
         val newfood=convertaddrefill(addrefilname)
+        val del_income=""
+        val del_expense=""
         url+="&return_stockdata="+stock
         url+="&airpaystart=${ticket[elementtype.ticket].first}"
         url+="&return_airpay="+airpay
@@ -45,6 +47,9 @@ class prepareUpdate{
         url+="&tempincome=${addincome}&tempexpense=${addexpense}"
         url+="&return_refill=${newfood}"
 
+        url+="&del_income=${del_income}&del_expense=${del_expense}"
+        println(ticket[elementtype.ticket].first)
+return url
         /*
         url+="&del_income=${if (checkdelitem(del_income))"" else del_income}&del_expense=${if (checkdelitem(del_expense))"" else del_expense}"
 

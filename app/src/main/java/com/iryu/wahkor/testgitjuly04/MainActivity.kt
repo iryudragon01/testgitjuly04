@@ -20,7 +20,10 @@ class MainActivity : AppCompatActivity() {
         statement.setOnClickListener { startActivity(Intent(this,StatementActivity::class.java))}
         refill.setOnClickListener { startActivity(Intent(this,RefillshowActivity::class.java))}
         sing.setOnClickListener { startActivity(Intent(this,LoginActivity::class.java))}
-        update.setOnClickListener { prepareUpdate().update() }
+        update.setOnClickListener {
+           val url=prepareUpdate().update()
+            GoogleScript().execute(url)
+        }
         if (LoadData){
             statement.isClickable=false
             refill.isClickable=false
@@ -94,7 +97,7 @@ class MainActivity : AppCompatActivity() {
     }
    inner   class GoogleScript():GoogleSheet(){
         override fun onPostExecute(result: String?) {
-
+println(result)
             val unwrap=(result as String).split("<||>")
             if (unwrap[0]=="getdataall") {
                 ticketadd(result)
