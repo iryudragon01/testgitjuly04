@@ -21,9 +21,18 @@ package com.iryu.wahkor.testgitjuly04
                    3 -> singleclick = -1
                }
                ticket.add(ticketitem(tkname[i], tkfirst[i].toInt(), tklast[i].toInt(), tkprice[i].toInt(), singleclick))
+              if(i==1){
+                  when(j){
+                   1 -> elementtype.ticket=tkname.size-1
+                   2 -> elementtype.airpay=tkname.size-1
+                   3 -> elementtype.food=tkname.size-1
+               }}
            }
 
        }
+       println("tickket count="+elementtype.ticket)
+       println("airpay count="+elementtype.airpay)
+       println("food count="+elementtype.food)
        refilladd(allitem[4])
        statementmanagement(allitem[5],allitem[6])
    }
@@ -82,6 +91,8 @@ fun extractExpense(rawdata: String): MutableList<Statement> {
 
 data class foodrefill(val time:String,val name:String,val value:Int)
 data class Statement(val date:String,val name:String,val value:Int)
+data class Elementtype(var ticket:Int,var airpay:Int,var food:Int)
+var elementtype=Elementtype(0,0,0)
 lateinit var Income:MutableList<Statement>
 lateinit var Expense:MutableList<Statement>
 lateinit var refillitem:MutableList<foodrefill>

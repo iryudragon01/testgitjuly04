@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         statement.setOnClickListener { startActivity(Intent(this,StatementActivity::class.java))}
         refill.setOnClickListener { startActivity(Intent(this,RefillshowActivity::class.java))}
         sing.setOnClickListener { startActivity(Intent(this,LoginActivity::class.java))}
+        update.setOnClickListener { prepareUpdate().update() }
         if (LoadData){
             statement.isClickable=false
             refill.isClickable=false
