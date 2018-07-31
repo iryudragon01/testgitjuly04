@@ -13,7 +13,7 @@ class prepareUpdate{
         var data="date"
 
         for (i in start until end){
-           val lastdata= if (airpay)ticket[i].last+ firstairpay[i- elementtype.ticket].airlast else ticket[i].last
+           val lastdata= if (airpay)ticket[i].last+ firstairpay[i- elementtype.ticket].airstart else ticket[i].last
             data+=","+lastdata
 
         }
