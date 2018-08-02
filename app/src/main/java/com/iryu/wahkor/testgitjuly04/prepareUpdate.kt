@@ -5,8 +5,9 @@ class prepareUpdate{
         var data=""
         for (i in 0 until rawdata.size){
             if (data!=""){data+="<<__>>"}
-            data=rawdata[i].date+rawdata[i].name+","+rawdata[i].value.toString()
+            data+=rawdata[i].date+","+rawdata[i].name+","+rawdata[i].value.toString()
         }
+        println(data)
         return data
     }
     fun convertticketdata(start:Int,end:Int,airpay:Boolean):String{
