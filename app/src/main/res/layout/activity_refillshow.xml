@@ -7,6 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".RefillshowActivity">
 
+
+    <Button
+        android:id="@+id/backmain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="กลับหน้าหลัก"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <Button
         android:id="@+id/refill"
         android:layout_width="wrap_content"
@@ -36,13 +44,5 @@
         app:layout_constraintVertical_bias="0.0">
 
     </ListView>
-
-    <Button
-        android:id="@+id/backmain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="กลับหน้าหลัก"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

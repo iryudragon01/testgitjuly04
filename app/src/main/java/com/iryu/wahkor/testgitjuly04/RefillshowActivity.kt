@@ -12,6 +12,7 @@ class RefillshowActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_refillshow)
+        backmain.setOnClickListener { startActivity(Intent(this,MainActivity::class.java)) }
         refill.setOnClickListener { addElementRefilldetail()}
         addrefill.setOnClickListener { addrefill() }
        // addElementRefilldetail()

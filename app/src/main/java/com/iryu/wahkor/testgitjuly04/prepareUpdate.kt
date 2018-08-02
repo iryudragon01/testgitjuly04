@@ -10,22 +10,27 @@ class prepareUpdate{
         return data
     }
     fun convertticketdata(start:Int,end:Int,airpay:Boolean):String{
-        var data="date"
 
+        var data="date"
+        var unchange=true
         for (i in start until end){
            val lastdata= if (airpay)ticket[i].last+ firstairpay[i- elementtype.ticket].airstart else ticket[i].last
             data+=","+lastdata
-
+            if (ticket[i].last!= ticket[i].last_old || ticket[i].first != ticket[i].first_old){
+                unchange=false}
         }
+        if (unchange) return "" else
        return data
     }
     fun convertaddrefill(rawdata:MutableList<AddRefillName>):String{
-        var data=""
+        if (rawdata.size==0 ){return ""}
+        var total=0
+        var data="date"
         for (i in 0 until rawdata.size){
-            if (data!=""){data+=","}
-            data+=rawdata[i].value
+            data+=","+rawdata[i].value
+            total+=rawdata[i].value
         }
-
+        if (total==0)return "" else
         return data
     }
 
@@ -39,6 +44,7 @@ class prepareUpdate{
         val newfood=convertaddrefill(addrefilname)
         val del_income=""
         val del_expense=""
+        println("stock=${stock}\nairpay=${airpay}\nfstock=${fstock}")
         url+="&return_stockdata="+stock
         url+="&airpaystart=${ticket[elementtype.ticket].first}"
         url+="&return_airpay="+airpay
@@ -48,7 +54,7 @@ class prepareUpdate{
         url+="&return_refill=${newfood}"
 
         url+="&del_income=${del_income}&del_expense=${del_expense}"
-        println(ticket[elementtype.ticket].first)
+        println("addrefill=${newfood}")
 return url
         /*
         url+="&del_income=${if (checkdelitem(del_income))"" else del_income}&del_expense=${if (checkdelitem(del_expense))"" else del_expense}"

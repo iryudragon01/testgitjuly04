@@ -1,5 +1,4 @@
 package com.iryu.wahkor.testgitjuly04
-
    fun ticketadd(result:String){
        val allitem=result.split("|||")
        ticket=ArrayList<ticketitem>()
@@ -20,7 +19,7 @@ package com.iryu.wahkor.testgitjuly04
                    2 -> singleclick = 10
                    3 -> singleclick = -1
                }
-               ticket.add(ticketitem(tkname[i], tkfirst[i].toInt(), tklast[i].toInt(), tkprice[i].toInt(), singleclick))
+               ticket.add(ticketitem(tkname[i], tkfirst[i].toInt(),tkfirst[i].toInt(),tklast[i].toInt(), tklast[i].toInt(), tkprice[i].toInt(), singleclick))
               if(i==1){
                   when(j){
                    1 -> elementtype.ticket=tkname.size-1
@@ -65,6 +64,8 @@ fun refilladd(refill:String) {
         firstairpay.add(FirstAirpay(ticket[i].first,ticket[i].last))
         ticket[i].last -= ticket[i].first
         ticket[i].first=0
+        ticket[i].first_old=0
+        ticket[i].last_old= ticket[i].last_old
     }
 
 }
@@ -94,6 +95,8 @@ fun extractExpense(rawdata: String): MutableList<Statement> {
 
 }
 
+data class ticketitem(val name:String,var first:Int,var first_old:Int,var last:Int,var last_old:Int,val price:Int,val singleclick:Int)
+lateinit var ticket:MutableList<ticketitem>
 data class foodrefill(val time:String,val name:String,val value:Int)
 data class Statement(val date:String,val name:String,val value:Int)
 data class Elementtype(var ticket:Int,var airpay:Int,var food:Int)

@@ -21,17 +21,22 @@ class MainActivity : AppCompatActivity() {
         refill.setOnClickListener { startActivity(Intent(this,RefillshowActivity::class.java))}
         sing.setOnClickListener { startActivity(Intent(this,LoginActivity::class.java))}
         update.setOnClickListener {
+
+            activatebutton(false)
            val url=prepareUpdate().update()
             GoogleScript().execute(url)
         }
         if (LoadData){
-            statement.isClickable=false
-            refill.isClickable=false
-            sing.isClickable=false
+            activatebutton(false)
         GoogleScript().execute("action=getdataall&GoogleId=${User.id}")}
         else{
             showitem(editposition)
         }
+    }
+    fun activatebutton(boolean:Boolean){
+        statement.isClickable=boolean
+        refill.isClickable=boolean
+        sing.isClickable=boolean
     }
     fun showitem(scroll:Int){
 
@@ -55,9 +60,7 @@ class MainActivity : AppCompatActivity() {
 
             }
         }))
-        statement.isClickable=true
-        refill.isClickable=true
-        sing.isClickable=true
+      activatebutton(true)
     }
 
     internal inner class RecyclerTouchListener(context: Context, recycleView: RecyclerView, private val clicklistener: ClickListener?) : RecyclerView.OnItemTouchListener {
@@ -119,6 +122,4 @@ println(result)
 
     }
 }
-data class ticketitem(val name:String,var first:Int,var last:Int,val price:Int,val singleclick:Int)
-lateinit var ticket:MutableList<ticketitem>
 
